@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LegmaMiteo — Open Weather Network</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght=400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="resources\icons\Vista Logos\logo.png">
 </head>
 <body>
 
@@ -17,7 +18,9 @@
         <div class="logo">LegmaMiteo</div>
         <ul class="nav-links">
             <li><a href="#home" class="nav-link active">Home</a></li>
-            <li><a href="#live" class="nav-link">Live Data</a></li>
+            <li><a href="#previsioni" class="nav-link">Previsioni</a></li>
+            <li><a href="#live" class="nav-link">Dati Live</a></li>
+            <li><a href="#specifiche" class="nav-link">Specifiche</a></li>
             <li><a href="#api" class="nav-link">API</a></li>
             <li><a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-nav" target="_blank">GitHub →</a></li>
         </ul>
@@ -28,7 +31,9 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="#home">Home</a>
-        <a href="#live">Live Data</a>
+        <a href="#previsioni">Previsioni</a>
+        <a href="#live">Dati Live</a>
+        <a href="#specifiche">Specifiche</a>
         <a href="#api">API</a>
         <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
     </div>
@@ -41,15 +46,15 @@
             </div>
             <div class="hero-content">
                 <div class="hero-badge">🌤️ Open Weather Network</div>
-                <h1 class="hero-title">Monitor the Sky<br><span class="gradient-text">in Real Time</span></h1>
-                <p class="hero-sub">Open-source, modular weather station network for real-time climate monitoring — built for under €200 per unit.</p>
+                <h1 class="hero-title">Monitora il Cielo<br><span class="gradient-text">in Tempo Reale</span></h1>
+                <p class="hero-sub">Rete di stazioni meteo open-source e modulari per il monitoraggio climatico avanzato — progettata con un budget inferiore a €200 per unità.</p>
                 <div class="hero-actions">
-                    <a href="#live" class="cta-button-hero">Live Data</a>
-                    <a href="https://github.com/Dragonyx118/LegmaMiteo" class="ghost-button" target="_blank">View on GitHub →</a>
+                    <a href="#previsioni" class="cta-button-hero">Cerca Stazione</a>
+                    <a href="https://github.com/Dragonyx118/LegmaMiteo" class="ghost-button" target="_blank">Vedi su GitHub →</a>
                 </div>
                 <div class="status-badge" id="statusBadge">
                     <div class="status-dot" id="statusDot"></div>
-                    <span id="statusText">Checking station...</span>
+                    <span id="statusText">Verifica stazione...</span>
                 </div>
             </div>
         </section>
@@ -58,19 +63,108 @@
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-number">7<span>+</span></div>
-                    <div class="stat-label">Sensor Modules</div>
+                    <div class="stat-label">Moduli Sensore</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">30<span>s</span></div>
-                    <div class="stat-label">Update Interval</div>
+                    <div class="stat-label">Intervallo Aggiornamento</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">24<span>/7</span></div>
-                    <div class="stat-label">Monitoring</div>
+                    <div class="stat-label">Monitoraggio Continuo</div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-number">€200</div>
-                    <div class="stat-label">Per Unit Cost</div>
+                    <div class="stat-label">Costo per Unità</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="search-section" id="previsioni">
+            <div class="search-container">
+                <div class="live-header">
+                    <div class="section-label">Localizzatore Stazioni</div>
+                    <h2>Meteo Locale & <span class="gradient-text">Nodi Vicini</span></h2>
+                    <p style="color:var(--text-muted); margin-top:12px; font-size:15px;">Trova la stazione LegmaMiteo più vicina a te per visualizzare i dati geolocalizzati e i modelli di previsione dell'area.</p>
+                </div>
+
+                <div class="search-box-wrapper">
+                    <div class="search-bar">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="stationSearchInput" placeholder="Inserisci il tuo paese, città o stazione... (Es. Milano, Trento)">
+                        <button class="search-cta-btn" id="searchBtn">Cerca</button>
+                    </div>
+                </div>
+
+                <div class="forecast-dashboard-grid">
+                    <div class="side-panel-card">
+                        <h3>Stazioni nelle Vicinanze</h3>
+                        <p class="panel-subtitle">Nodi attivi rilevati nel raggio di 25km</p>
+                        <div class="station-list">
+                            <div class="station-list-item active">
+                                <div class="item-status-dot"></div>
+                                <div class="item-info">
+                                    <span class="item-title">STATION-001 (Centro Storico)</span>
+                                    <span class="item-distance">Distanza: 1.2 km • Online</span>
+                                </div>
+                            </div>
+                            <div class="station-list-item">
+                                <div class="item-status-dot"></div>
+                                <div class="item-info">
+                                    <span class="item-title">STATION-004 (Zona Nord)</span>
+                                    <span class="item-distance">Distanza: 6.8 km • Online</span>
+                                </div>
+                            </div>
+                            <div class="station-list-item">
+                                <div class="item-status-dot offline"></div>
+                                <div class="item-info">
+                                    <span class="item-title">STATION-012 (Rifugio Alpino)</span>
+                                    <span class="item-distance">Distanza: 14.5 km • Offline</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="forecast-main-panel">
+                        <div class="forecast-current">
+                            <div class="current-weather-main">
+                                <span class="current-weather-icon">🌤️</span>
+                                <div>
+                                    <h4 id="forecastLocationName">Seleziona una località</h4>
+                                    <p id="forecastConditionText">Usa la barra sopra per cercare la tua zona</p>
+                                </div>
+                            </div>
+                            <div class="current-temp-badge" id="forecastTemp">—°C</div>
+                        </div>
+
+                        <div class="forecast-weekly-grid">
+                            <div class="day-forecast-card">
+                                <span class="day-name">Domani</span>
+                                <span class="day-icon">☀️</span>
+                                <span class="day-temps">24° / 14°</span>
+                            </div>
+                            <div class="day-forecast-card">
+                                <span class="day-name">Mer</span>
+                                <span class="day-icon">⛅</span>
+                                <span class="day-temps">22° / 15°</span>
+                            </div>
+                            <div class="day-forecast-card">
+                                <span class="day-name">Gio</span>
+                                <span class="day-icon">🌧️</span>
+                                <span class="day-temps">18° / 11°</span>
+                            </div>
+                            <div class="day-forecast-card">
+                                <span class="day-name">Ven</span>
+                                <span class="day-icon">🌩️</span>
+                                <span class="day-temps">19° / 12°</span>
+                            </div>
+                            <div class="day-forecast-card">
+                                <span class="day-name">Sab</span>
+                                <span class="day-icon">☀️</span>
+                                <span class="day-temps">25° / 16°</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -79,54 +173,77 @@
             <div class="live-container">
                 <div class="live-header">
                     <div class="section-label">STATION-001 — LIVE</div>
-                    <h2>Current <span class="gradient-text">Conditions</span></h2>
-                    <p style="color:var(--text-muted); margin-top:12px; font-size:15px;">Data updates every 30 seconds. Station online when server is running.</p>
+                    <h2>Condizioni <span class="gradient-text">Attuali</span></h2>
+                    <p style="color:var(--text-muted); margin-top:12px; font-size:15px;">I dati si aggiornano ogni 30 secondi. La stazione è online quando il server centrale è attivo.</p>
                 </div>
                 <div class="live-grid" id="liveGrid">
-                    <div class="data-card"><div class="data-icon">🌡️</div><div class="data-label">Temperature</div><div class="data-value" id="val-temp"><span class="data-loading">—</span></div><div class="data-unit">°C</div></div>
-                    <div class="data-card"><div class="data-icon">💧</div><div class="data-label">Humidity</div><div class="data-value" id="val-hum"><span class="data-loading">—</span></div><div class="data-unit">%</div></div>
-                    <div class="data-card"><div class="data-icon">🌬️</div><div class="data-label">Pressure</div><div class="data-value" id="val-pres"><span class="data-loading">—</span></div><div class="data-unit">hPa</div></div>
-                    <div class="data-card"><div class="data-icon">💨</div><div class="data-label">Wind Speed</div><div class="data-value" id="val-wind"><span class="data-loading">—</span></div><div class="data-unit">km/h</div></div>
-                    <div class="data-card"><div class="data-icon">☀️</div><div class="data-label">Light</div><div class="data-value" id="val-lux"><span class="data-loading">—</span></div><div class="data-unit">lux</div></div>
-                    <div class="data-card"><div class="data-icon">🌧️</div><div class="data-label">Rain</div><div class="data-value" id="val-rain"><span class="data-loading">—</span></div><div class="data-unit">mm</div></div>
+                    <div class="data-card"><div class="data-icon">🌡️</div><div class="data-label">Temperatura</div><div class="data-value" id="val-temp"><span class="data-loading">—</span></div><div class="data-unit">°C</div></div>
+                    <div class="data-card"><div class="data-icon">💧</div><div class="data-label">Umidità</div><div class="data-value" id="val-hum"><span class="data-loading">—</span></div><div class="data-unit">%</div></div>
+                    <div class="data-card"><div class="data-icon">🌬️</div><div class="data-label">Pressione</div><div class="data-value" id="val-pres"><span class="data-loading">—</span></div><div class="data-unit">hPa</div></div>
+                    <div class="data-card"><div class="data-icon">💨</div><div class="data-label">Velocità Vento</div><div class="data-value" id="val-wind"><span class="data-loading">—</span></div><div class="data-unit">km/h</div></div>
+                    <div class="data-card"><div class="data-icon">☀️</div><div class="data-label">Luminosità</div><div class="data-value" id="val-lux"><span class="data-loading">—</span></div><div class="data-unit">lux</div></div>
+                    <div class="data-card"><div class="data-icon">🌧️</div><div class="data-label">Pioggia</div><div class="data-value" id="val-rain"><span class="data-loading">—</span></div><div class="data-unit">mm</div></div>
                 </div>
             </div>
         </section>
 
         <section class="content-section">
             <div class="features-container">
-                <div class="section-label" style="text-align:center;">FEATURES</div>
-                <h2>Built for<br><span class="gradient-text">Real Science</span></h2>
+                <div class="section-label" style="text-align:center;">Caratteristiche</div>
+                <h2>Sviluppato per la<br><span class="gradient-text">Vera Scienza</span></h2>
                 <div class="features-grid">
                     <div class="feature-card">
                         <div class="feature-icon">🧩</div>
-                        <h3>Modular Design</h3>
-                        <p>Base unit plus 8 swappable expansion modules — from air quality to lightning detection, soil moisture to snow depth.</p>
+                        <h3>Design Modulare</h3>
+                        <p>Unità di calcolo centrale accoppiata a 8 moduli di espansione indipendenti: dalla qualità dell'aria ai rilevatori di fulmini.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">📡</div>
-                        <h3>Dual Connectivity</h3>
-                        <p>WiFi primary connection with LoRa mesh fallback for remote mountain or rural deployments with no internet access.</p>
+                        <h3>Doppia Connettività</h3>
+                        <p>Connessione primaria Wi-Fi con fallback automatico su rete mesh LoRa per installazioni remote montane o rurali.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">☀️</div>
-                        <h3>Solar Powered</h3>
-                        <p>10W panel with LiFePO4 battery and MPPT controller — fully autonomous, no grid required, runs indefinitely.</p>
+                        <h3>Alimentazione Solare</h3>
+                        <p>Pannello da 10W con batteria LiFePO4 e regolatore MPPT dedicato — completamente autonomo ad operatività continua.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🔔</div>
-                        <h3>Smart Alerts</h3>
-                        <p>Telegram notifications for critical conditions — pressure drops, lightning nearby, PM2.5 spikes, high temperature.</p>
+                        <h3>Avvisi Smart</h3>
+                        <p>Notifiche Telegram immediate per condizioni critiche: cali repentini di pressione, temporali in avvicinamento e picchi PM2.5.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">🌐</div>
-                        <h3>Open REST API</h3>
-                        <p>Public API to access all station data in real time. CC BY-NC 4.0 licensed — free for research and education.</p>
+                        <h3>REST API Aperte</h3>
+                        <p>API pubbliche per accedere a tutti i dati storici e correnti in tempo reale. Licenza CC BY-NC 4.0 per ricerca e scuole.</p>
                     </div>
                     <div class="feature-card">
                         <div class="feature-icon">⚡</div>
-                        <h3>Storm Detection</h3>
-                        <p>AS3935 lightning sensor with pressure delta analysis for early detection of severe convective events and supercells.</p>
+                        <h3>Rilevamento Tempeste</h3>
+                        <p>Sensore di fulmini AS3935 combinato con analisi barometrica per l'allerta precoce di supercelle ed eventi convettivi.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="tech-specs-section" id="specifiche">
+            <div class="tech-container">
+                <div class="live-header">
+                    <div class="section-label">Dettagli di Progetto</div>
+                    <h2>Architettura Hardware & <span class="gradient-text">Ingegneria</span></h2>
+                </div>
+                <div class="tech-detailed-grid">
+                    <div class="tech-block">
+                        <h4>Firmware ed Edge Computing</h4>
+                        <p>Sviluppato in ambiente C++/Arduino nativo per microcontrollori ESP32, il firmware implementa algoritmi di campionamento a basso rumore ed elaborazione dei dati direttamente a bordo (Edge Computing). Gestione avanzata dei cicli di deep-sleep per ridurre i consumi a micro-ampere.</p>
+                    </div>
+                    <div class="tech-block">
+                        <h4>Topologia Radio LoRa Mesh</h4>
+                        <p>Il protocollo wireless integrato permette alle stazioni isolate di configurarsi automaticamente come nodi ripetitori. I dati saltano da una stazione all'altra in modalità peer-to-peer fino a raggiungere il gateway Internet più vicino, espandendo la copertura anche in valli non coperte da rete cellulare.</p>
+                    </div>
+                    <div class="tech-block">
+                        <h4>Scocca e Certificazione Stampa 3D</h4>
+                        <p>Tutti i componenti strutturali includono file CAD pronti per la stampa 3D in materiali resistenti ai raggi UV (ASA/PETG). Lo schermo solare ventilato (Radiation Shield) è ottimizzato idrodinamicamente per proteggere i sensori termici senza falsare le letture microclimatiche.</p>
                     </div>
                 </div>
             </div>
@@ -135,13 +252,13 @@
         <section class="api-section" id="api">
             <div class="api-inner">
                 <div class="section-label">PUBLIC REST API</div>
-                <h2>Open <span class="gradient-text">Data Access</span></h2>
-                <p>All station data is publicly accessible via REST API. No authentication required for reads.</p>
+                <h2>Accesso Libero ai <span class="gradient-text">Dati</span></h2>
+                <p>Tutti i dati meteorologici raccolti sono accessibili pubblicamente tramite endpoint REST standard. Nessun token richiesto per la lettura.</p>
 
                 <div class="code-block">
-                    <span class="code-comment"># Latest data from station-001</span><br>
+                    <span class="code-comment"># Richiesta ultimi dati registrati dal nodo station-001</span><br>
                     <span class="code-url">GET /data/station-001/latest</span><br><br>
-                    <span class="code-comment"># Response</span><br>
+                    <span class="code-comment"># Struttura del payload di risposta</span><br>
                     {<br>
                     &nbsp;&nbsp;<span class="code-key">"temperature"</span>: <span class="code-value">29.7</span>,<br>
                     &nbsp;&nbsp;<span class="code-key">"humidity"</span>: <span class="code-value">61.8</span>,<br>
@@ -151,21 +268,21 @@
                 </div>
 
                 <div class="api-endpoints">
-                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/stations/</div><div class="endpoint-desc">List all active stations</div></div>
-                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/data/{id}/latest</div><div class="endpoint-desc">Latest sensor reading</div></div>
-                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/data/{id}/history</div><div class="endpoint-desc">Historical data range</div></div>
-                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/data/{id}/alerts</div><div class="endpoint-desc">Active alert conditions</div></div>
-                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/health</div><div class="endpoint-desc">Server health check</div></div>
-                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/docs</div><div class="endpoint-desc">Interactive Swagger UI</div></div>
+                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/stations/</div><div class="endpoint-desc">Elenca tutti i nodi attivi sulla mappa globale</div></div>
+                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/data/{id}/latest</div><div class="endpoint-desc">Restituisce l'ultima lettura dei sensori in tempo reale</div></div>
+                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/data/{id}/history</div><div class="endpoint-desc">Estrae serie storiche filtrate per data ed ora</div></div>
+                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/data/{id}/alerts</div><div class="endpoint-desc">Controlla gli avvisi meteo attivi sul singolo nodo</div></div>
+                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/health</div><div class="endpoint-desc">Verifica dello stato di salute del server centrale</div></div>
+                    <div class="endpoint-card"><div class="endpoint-method">GET</div><div class="endpoint-path">/docs</div><div class="endpoint-desc">Interfaccia interattiva Swagger UI per sviluppatori</div></div>
                 </div>
             </div>
         </section>
 
         <section class="cta-section">
             <div class="cta-inner">
-                <h2>Build Your Own<br><span class="gradient-text">Weather Station</span></h2>
-                <p>Everything is open source. Hardware schematics, firmware, and server — all on GitHub.</p>
-                <a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-button-hero" target="_blank">View on GitHub</a>
+                <h2>Costruisci la Tua<br><span class="gradient-text">Stazione Meteo</span></h2>
+                <p>Il progetto è completamente open source. Schemi hardware, sorgenti del firmware e codice backend sono disponibili liberamente su GitHub.</p>
+                <a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-button-hero" target="_blank">Apri la Repository GitHub</a>
             </div>
         </section>
 
@@ -175,11 +292,13 @@
         <div class="footer-inner">
             <div class="footer-logo">LegmaMiteo</div>
             <div class="footer-links">
-                <a href="#live">Live Data</a>
+                <a href="#previsioni">Previsioni</a>
+                <a href="#live">Dati Live</a>
+                <a href="#specifiche">Specifiche</a>
                 <a href="#api">API</a>
                 <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
                 <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/DATA_POLICY.md" target="_blank">Data Policy</a>
-                <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/LICENSE" target="_blank">License</a>
+                <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/LICENSE" target="_blank">Licenza</a>
             </div>
             <p class="footer-copy">© 2026 LegmaMiteo — Hippocratic License HL3-CL-ECO-LAW-MIL-SV — Data: CC BY-NC 4.0</p>
         </div>
@@ -197,10 +316,14 @@
         document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; dot.style.left = mx+'px'; dot.style.top = my+'px'; });
         document.addEventListener('mousedown', () => document.body.classList.add('cursor-click'));
         document.addEventListener('mouseup',   () => document.body.classList.remove('cursor-click'));
-        document.querySelectorAll('a,button').forEach(el => {
-            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-        });
+        
+        function updateCursorInteractions() {
+            document.querySelectorAll('a, button, input, .station-list-item').forEach(el => {
+                el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+                el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+            });
+        }
+        updateCursorInteractions();
         (function animRing(){ rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx+'px'; ring.style.top = ry+'px'; requestAnimationFrame(animRing); })();
 
         // ── THREE.JS ─────────────────────────────────────────
@@ -249,10 +372,32 @@
         gsap.from('.hero-sub',     { opacity:0, y:30, duration:.8, delay:.7, ease:'power2.out' });
         gsap.from('.hero-actions', { opacity:0, y:20, duration:.8, delay:.9, ease:'power2.out' });
         gsap.from('.status-badge', { opacity:0, y:20, duration:.8, delay:1.1, ease:'power2.out' });
+        
+        gsap.from('.search-box-wrapper', { scrollTrigger:{trigger:'.search-section', start:'top 80%'}, opacity:0, y:30, duration:0.8, ease:'power2.out' });
+        gsap.from('.forecast-dashboard-grid', { scrollTrigger:{trigger:'.search-box-wrapper', start:'bottom 80%'}, opacity:0, y:40, duration:0.8, ease:'power2.out' });
+
         gsap.utils.toArray('.data-card').forEach((c,i) => gsap.from(c, { scrollTrigger:{trigger:'.live-grid',start:'top 80%'}, y:50, opacity:0, duration:.7, delay:i*.08, ease:'power2.out' }));
         gsap.utils.toArray('.feature-card').forEach((c,i) => gsap.from(c, { scrollTrigger:{trigger:'.features-grid',start:'top 80%'}, y:60, opacity:0, duration:.8, delay:i*.1, ease:'power2.out' }));
+        gsap.utils.toArray('.tech-block').forEach((b,i) => gsap.from(b, { scrollTrigger:{trigger:'.tech-detailed-grid',start:'top 85%'}, y:40, opacity:0, duration:.8, delay:i*.15, ease:'power2.out' }));
 
-        // ── API URL — sostituire con il tuo tunnel Cloudflare ─
+        // ── INTERFACCIA DI RICERCA GRAFICA (LOGICA VISIVA SIMULATA) ──
+        const searchInput = document.getElementById('stationSearchInput');
+        const searchBtn = document.getElementById('searchBtn');
+        const locName = document.getElementById('forecastLocationName');
+        const condText = document.getElementById('forecastConditionText');
+        const forecastTemp = document.getElementById('forecastTemp');
+
+        searchBtn.addEventListener('click', () => {
+            const val = searchInput.value.trim();
+            if(val !== "") {
+                locName.textContent = val.charAt(0).toUpperCase() + val.slice(1);
+                condText.textContent = "Agganciato alla stazione LegmaMiteo più vicina (STATION-001)";
+                forecastTemp.textContent = "22.5°C";
+            }
+        });
+        searchInput.addEventListener('keydown', e => { if(e.key === 'Enter') searchBtn.click(); });
+
+        // ── LIVE API DATA ────────────────────────────────────
         const API_BASE = 'https://YOUR-TUNNEL.trycloudflare.com';
         const STATION  = 'station-001';
 
@@ -271,10 +416,10 @@
                 document.getElementById('val-rain').textContent  = d.rain_mm?.toFixed(1)      ?? '—';
 
                 document.getElementById('statusDot').className  = 'status-dot online';
-                document.getElementById('statusText').textContent = 'Station online';
+                document.getElementById('statusText').textContent = 'Stazione Online';
             } catch {
                 document.getElementById('statusDot').className  = 'status-dot offline';
-                document.getElementById('statusText').textContent = 'Station offline';
+                document.getElementById('statusText').textContent = 'Server Offline';
                 ['val-temp','val-hum','val-pres','val-wind','val-lux','val-rain'].forEach(id => {
                     document.getElementById(id).innerHTML = '<span class="data-loading">—</span>';
                 });
@@ -288,6 +433,9 @@
         const hamburger = document.getElementById('hamburger');
         const mobileMenu = document.getElementById('mobileMenu');
         hamburger.addEventListener('click', () => { hamburger.classList.toggle('open'); mobileMenu.classList.toggle('open'); });
+        document.querySelectorAll('.mobile-menu a').forEach(l => {
+            l.addEventListener('click', () => { hamburger.classList.remove('open'); mobileMenu.classList.remove('open'); });
+        });
 
         // ── SMOOTH SCROLL ─────────────────────────────────────
         document.querySelectorAll('a[href^="#"]').forEach(a => {
