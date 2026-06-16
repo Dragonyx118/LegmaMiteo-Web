@@ -1,94 +1,170 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LegmaMiteo - Stazione Meteo Open Source</title>
-    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
-    <style>
-        :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; }
-        header { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 1rem 2rem; position: sticky; top: 0; z-index: 100; }
-        nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        
-        .hero { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(to right, #60a5fa, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 800px; margin: 0 auto 2rem; }
-        .btn { display: inline-block; background: var(--primary); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; transition: background 0.2s; }
-        .btn:hover { background: var(--primary-hover); }
-
-        .features { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .card { background: var(--bg-card); border: 1px solid var(--border); padding: 2rem; border-radius: 0.75rem; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card-icon { color: var(--primary); margin-bottom: 1rem; }
-        .card h3 { margin-bottom: 0.5rem; }
-        .card p { color: var(--text-muted); font-size: 0.95rem; }
-
-        footer { background: #020617; border-top: 1px solid var(--border); padding: 2rem; text-align: center; margin-top: 4rem; }
-        .github-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #24292e; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; text-decoration: none; font-size: 0.9rem; margin-top: 1rem; transition: opacity 0.2s; }
-        .github-btn:hover { opacity: 0.9; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LegmaMiteo — Open Weather Network</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.main { display:flex; flex-direction:column; align-items:center; overflow:hidden; width:100%; min-height:300vh; position:relative; z-index:1; }
+.content-section { min-height:80vh; display:flex; align-items:center; justify-content:center; padding:100px 24px; position:relative; z-index:2; width:100%; }
+.content-section h2 { font-size:clamp(32px,5vw,48px); font-weight:700; text-align:center; margin-bottom:16px; letter-spacing:-1px; line-height:1.15; }
+.features-container { max-width:1100px; width:100%; }
+.features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; margin-top:60px; }
+.feature-card { background:rgba(255,255,255,.60); backdrop-filter:blur(24px); border:1.5px solid rgba(255,255,255,.85); border-radius:20px; padding:32px; text-align:center; transition:transform .3s,box-shadow .3s,background .3s; display:flex; flex-direction:column; gap:12px; box-shadow:0 4px 20px rgba(0,0,0,.07),0 1px 0 #fff inset; }
+.feature-card:hover { transform:translateY(-8px); background:rgba(255,255,255,.82); box-shadow:0 20px 50px rgba(8,187,191,.15),0 1px 0 #fff inset; }
+.feature-icon { font-size:36px; }
+.feature-card h3 { font-size:20px; font-weight:600; background:linear-gradient(135deg,var(--teal),var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.feature-card p { color:var(--text-muted); font-size:15px; line-height:1.6; }
+.feature-link { color:var(--teal); text-decoration:none; font-size:14px; font-weight:600; transition:opacity .2s; }
+.feature-link:hover { opacity:.7; }
+</style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo"><i data-lucide="cloud-lightning"></i> LegmaMiteo</div>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="live.html">Dati Live</a></li>
-                <li><a href="api.html">API Docs</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section class="hero">
-            <h1>Monitoraggio Ambientale Intelligente</h1>
-            <p>LegmaMiteo è una rete modulare di stazioni meteo open-source progettata per il nowcasting e il tracciamento degli eventi atmosferici estremi nel territorio lombardo.</p>
-            <a href="live.html" class="btn">Visualizza Dati Realtime</a>
-        </section>
+<nav>
+    <a href="index.html" class="logo">LegmaMiteo</a>
+    <ul class="nav-links">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="live.html" class="nav-link">Live Data</a></li>
+        <li><a href="api.html" class="nav-link">API</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-nav" target="_blank">
+                <svg class="github-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                GitHub
+            </a>
+        </li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a><a href="live.html">Live Data</a>
+    <a href="api.html">API</a><a href="about.html">About</a>
+    <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+</div>
 
-        <section class="features">
-            <div class="card">
-                <div class="card-icon"><i data-lucide="cpu"></i></div>
-                <h3>Architettura Modulare</h3>
-                <p>Configurazione flessibile composta da una BASE centrale e 7 moduli dedicati dotati di connettori IP68 stagni.</p>
+<div class="main">
+    <section class="paragraph" id="home">
+        <div class="canvas-container"><canvas id="canvas"></canvas></div>
+        <div class="hero-content">
+            <div class="hero-badge">🌤️ Open Weather Network — Northern Italy</div>
+            <h1 class="hero-title">Understand the Sky<br><span class="gradient-text">Before It Strikes</span></h1>
+            <p class="hero-sub">LegmaMiteo is an open-source network of modular weather stations built to detect severe convective events — supercells, hailstorms, and tornadoes — that national models miss entirely.</p>
+            <div class="hero-actions">
+                <a href="live.html" class="btn-primary">Live Data</a>
+                <a href="about.html" class="btn-ghost">Why we built this →</a>
             </div>
-            <div class="card">
-                <div class="card-icon"><i data-lucide="database"></i></div>
-                <h3>Infrastruttura Solida</h3>
-                <p>Pipeline dati ottimizzata basata sul protocollo MQTT accoppiata allo stack Telegraf, InfluxDB e Grafana dentro container Docker.</p>
+            <div class="status-badge" id="statusBadge">
+                <div class="status-dot" id="statusDot"></div>
+                <span id="statusText">Checking station...</span>
             </div>
-            <div class="card">
-                <div class="card-icon"><i data-lucide="shield-check"></i></div>
-                <h3>Open Source Reale</h3>
-                <p>Licenza etica Hippocratic License e gestione della privacy trasparente per una condivisione libera e sicura delle metriche.</p>
+        </div>
+    </section>
+
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item"><div class="stat-number">7<span>+</span></div><div class="stat-label">Sensor Modules</div></div>
+            <div class="stat-item"><div class="stat-number">30<span>s</span></div><div class="stat-label">Update Interval</div></div>
+            <div class="stat-item"><div class="stat-number">24<span>/7</span></div><div class="stat-label">Autonomous</div></div>
+            <div class="stat-item"><div class="stat-number">€200</div><div class="stat-label">Per Unit</div></div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="features-container">
+            <div class="section-label" style="text-align:center">CAPABILITIES</div>
+            <h2>Built for Events<br><span class="gradient-text">That Models Miss</span></h2>
+            <p style="text-align:center;color:var(--text-muted);max-width:600px;margin:0 auto;font-size:16px;line-height:1.7">Global models like ECMWF operate at 9km resolution with 1-hour time steps. Supercells develop in 20 minutes over 5km. That gap is exactly what LegmaMiteo fills.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Lightning Detection</h3>
+                    <p>AS3935 Franklin sensor detects lightning strikes up to 40km away, tracking distance and energy — the first signal of an approaching supercell.</p>
+                    <a href="about.html#storm" class="feature-link">Learn more →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📉</div>
+                    <h3>Pressure Monitoring</h3>
+                    <p>A drop of 3–5 hPa in under two hours is a reliable precursor to severe convective development. BMP580 tracks this in real time with 0.06 hPa resolution.</p>
+                    <a href="live.html" class="feature-link">See live data →</a>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌬️</div>
+                    <h3>Wind Shear Analysis</h3>
+                    <p>Rapid changes in wind direction and speed at ground level are indirect signatures of the atmospheric instability that drives hail-producing thunderstorms.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">😷</div>
+                    <h3>Air Quality</h3>
+                    <p>MOD-AIR measures PM1/PM2.5/PM10, CO₂ and VOC in real time — critical for post-event analysis after dust storms, wildfires or industrial accidents.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>Instant Alerts</h3>
+                    <p>Telegram notifications fire the moment thresholds are crossed — pressure drop, lightning within 10km, PM2.5 above WHO limits — with zero delay.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Open Data API</h3>
+                    <p>Every measurement is publicly accessible in real time via REST API. No key required for reads. CC BY-NC 4.0 — free for research and education.</p>
+                    <a href="api.html" class="feature-link">API docs →</a>
+                </div>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 LegmaMiteo Project. Tutti i diritti riservati.</p>
-        <a href="https://github.com/Dragonyx118/LegmaMiteo-Web" class="github-btn" target="_blank">
-            <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            Vedi la Repository su GitHub
-        </a>
-    </footer>
+    <section class="cta-section">
+        <div class="cta-inner">
+            <h2>Deploy Your Own<br><span class="gradient-text">Station</span></h2>
+            <p>Everything is open source — hardware schematics, firmware, and server stack. Under €200 to build, solar powered, designed for unattended deployment anywhere.</p>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="btn-primary" target="_blank">View on GitHub</a>
+        </div>
+    </section>
+</div>
 
-    <script>lucide.createIcons();</script>
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">LegmaMiteo</div>
+        <div class="footer-links">
+            <a href="live.html">Live Data</a><a href="api.html">API</a>
+            <a href="about.html">About</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/DATA_POLICY.md" target="_blank">Data Policy</a>
+        </div>
+        <p class="footer-copy">© 2026 LegmaMiteo — Hippocratic License HL3-CL-ECO-LAW-MIL-SV — Data: CC BY-NC 4.0</p>
+    </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script>
+const canvas=document.getElementById('canvas'),scene=new THREE.Scene(),camera=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,.1,1000),renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+renderer.setSize(window.innerWidth,window.innerHeight);renderer.setPixelRatio(Math.min(devicePixelRatio,2));camera.position.z=5;
+const geo=new THREE.BufferGeometry(),n=6000,pos=new Float32Array(n*3);
+for(let i=0;i<n;i++){pos[i*3]=(Math.random()-.5)*12;pos[i*3+1]=(Math.random()-.5)*12;pos[i*3+2]=(Math.random()-.5)*12;}
+geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
+const mat=new THREE.PointsMaterial({size:.018,color:0x08bbbf,transparent:true,opacity:.75,blending:THREE.AdditiveBlending,sizeAttenuation:true});
+const pts=new THREE.Points(geo,mat);scene.add(pts);
+const sphere=new THREE.Mesh(new THREE.SphereGeometry(2,64,64),new THREE.MeshBasicMaterial({color:0x08bbbf,transparent:true,opacity:.08,wireframe:true}));scene.add(sphere);
+const inner=new THREE.Mesh(new THREE.SphereGeometry(1.4,32,32),new THREE.MeshBasicMaterial({color:0x9ad63c,transparent:true,opacity:.04,wireframe:true}));scene.add(inner);
+let sp=0;const clk=new THREE.Clock();
+gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.create({trigger:'.paragraph',start:'top top',end:'bottom top',scrub:true,onUpdate:s=>{sp=s.progress;}});
+gsap.from('.hero-badge',{opacity:0,y:30,duration:.8,delay:.3,ease:'power2.out'});
+gsap.from('.hero-title',{opacity:0,y:40,duration:1,delay:.5,ease:'power2.out'});
+gsap.from('.hero-sub',{opacity:0,y:30,duration:.8,delay:.7,ease:'power2.out'});
+gsap.from('.hero-actions',{opacity:0,y:20,duration:.8,delay:.9,ease:'power2.out'});
+gsap.from('.status-badge',{opacity:0,y:20,duration:.8,delay:1.1,ease:'power2.out'});
+gsap.utils.toArray('.feature-card').forEach((c,i)=>gsap.from(c,{scrollTrigger:{trigger:'.features-grid',start:'top 80%'},y:60,opacity:0,duration:.8,delay:i*.1,ease:'power2.out'}));
+(function anim(){requestAnimationFrame(anim);const t=clk.getElapsedTime();pts.rotation.y=t*.04+sp*Math.PI*2;pts.rotation.x=t*.015+sp*Math.PI;sphere.rotation.y=t*.06;sphere.rotation.x=t*.03;sphere.scale.setScalar(1+sp*.6);inner.rotation.y=-t*.1;inner.rotation.z=t*.05;const p=pts.geometry.attributes.position.array;for(let i=0;i<p.length;i+=3)p[i+1]+=Math.sin(t*.5+p[i])*.001;pts.geometry.attributes.position.needsUpdate=true;const c=new THREE.Color().setHSL(.5+sp*.15,.8,.55);mat.color=c;sphere.material.color=c;renderer.render(scene,camera);})();
+window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
+
+// API
+const API='https://YOUR-TUNNEL.trycloudflare.com';
+async function check(){try{const r=await fetch(API+'/health',{signal:AbortSignal.timeout(4000)});if(!r.ok)throw 0;document.getElementById('statusDot').className='status-dot online';document.getElementById('statusText').textContent='Station online';}catch{document.getElementById('statusDot').className='status-dot offline';document.getElementById('statusText').textContent='Station offline';}}
+check();setInterval(check,60000);
+</script>
+<script src="ui.js"></script>
 </body>
 </html>
