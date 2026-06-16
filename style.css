@@ -200,6 +200,18 @@ footer { background: rgba(255,255,255,.55); backdrop-filter: blur(20px); border-
 .footer-links a:hover { color: var(--text); }
 .footer-copy { color: var(--text-light); font-size: 13px; }
 
+
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1; /* Mette il video DIETRO a tutti gli altri elementi della pagina */
+    pointer-events: none; /* Impedisce che il video intercetti i clic del mouse */
+}
+
 /* RESPONSIVE */
 @media (max-width: 768px) {
     nav { top: 16px; padding: 12px 20px; gap: 24px; width: calc(100% - 32px); max-width: 600px; }
