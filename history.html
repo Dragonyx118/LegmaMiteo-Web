@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LegmaMiteo — Storico Dati</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">LegmaMiteo</a>
+    <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="live.html" class="nav-link">Live</a></li>
+        <li><a href="history.html" class="nav-link active">Storico</a></li>
+        <li><a href="map.html" class="nav-link">Mappa</a></li>
+        <li><a href="build.html" class="nav-link">Build</a></li>
+        <li><a href="api.html" class="nav-link">API</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-nav" target="_blank">
+                <svg class="github-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                GitHub
+            </a>
+        </li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<video autoplay loop muted playsinline class="video-bg">
+    <source src="resources/videos/sky1.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a><a href="live.html">Live Data</a>
+    <a href="history.html">Storico</a><a href="map.html">Mappa</a>
+    <a href="build.html">Build</a><a href="api.html">API</a><a href="about.html">About</a>
+    <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+</div>
+
+<main>
+    <section class="page-hero">
+        <div class="section-label">ANALISI TEMPORALE</div>
+        <h1>Storico<br><span class="gradient-text">delle Misurazioni</span></h1>
+        <p>Andamento delle metriche della stazione nel tempo, utile per riconoscere pattern e precursori di eventi severi.</p>
+    </section>
+
+    <section class="content-section" style="padding-top:0">
+        <div class="features-container">
+
+            <div class="chart-controls" id="rangeControls">
+                <button class="range-btn" data-hours="6">6h</button>
+                <button class="range-btn active" data-hours="24">24h</button>
+                <button class="range-btn" data-hours="72">3 giorni</button>
+                <button class="range-btn" data-hours="168">7 giorni</button>
+            </div>
+
+            <div class="metric-tabs" id="metricTabs">
+                <button class="metric-tab active" data-metric="temperature">🌡️ Temperatura</button>
+                <button class="metric-tab" data-metric="pressure">📊 Pressione</button>
+                <button class="metric-tab" data-metric="humidity">💧 Umidità</button>
+                <button class="metric-tab" data-metric="wind_speed">🌬️ Vento</button>
+            </div>
+
+            <p class="mock-banner" id="mockBanner" style="display:none">
+                ⚠️ L'endpoint <code>/api/v1/stations/{id}/history</code> non è ancora attivo sul server — questa pagina mostra dati simulati con la stessa struttura, pronti a essere sostituiti automaticamente quando l'endpoint sarà disponibile.
+            </p>
+
+            <div class="chart-card">
+                <div class="chart-card-header">
+                    <h3 id="chartTitle">Temperatura — station-001</h3>
+                    <div class="chart-card-stats">
+                        <span>Min <b id="statMin">–</b></span>
+                        <span>Max <b id="statMax">–</b></span>
+                        <span>Media <b id="statAvg">–</b></span>
+                    </div>
+                </div>
+                <div class="chart-canvas-wrap">
+                    <canvas id="historyChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">LegmaMiteo</div>
+        <div class="footer-links">
+            <a href="live.html">Dati Live</a><a href="history.html">Storico</a>
+            <a href="map.html">Mappa</a><a href="build.html">Build</a><a href="api.html">API</a>
+            <a href="about.html">About</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/DATA_POLICY.md" target="_blank">Data Policy</a>
+        </div>
+        <p class="footer-copy">© 2026 LegmaMiteo — Hippocratic License HL3-CL-ECO-LAW-MIL-SV — Data: CC BY-NC 4.0</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script>
+const API = 'https://YOUR-TUNNEL.trycloudflare.com';
+const STATION_ID = 'station-001';
+
+const METRIC_META = {
+    temperature: { label: 'Temperatura', unit: '°C', color: '#08bbbf' },
+    pressure:    { label: 'Pressione',   unit: 'hPa', color: '#5b3fd6' },
+    humidity:    { label: 'Umidità',     unit: '%',  color: '#22c5b8' },
+    wind_speed:  { label: 'Vento',       unit: 'km/h', color: '#7c5cf0' }
+};
+
+let currentMetric = 'temperature';
+let currentHours = 24;
+let chart = null;
+let usingMock = false;
+
+// Deterministic-ish mock generator so values are plausible and stable-looking per range.
+function generateMock(hours, metric){
+    const points = [];
+    const now = Date.now();
+    const stepMin = hours <= 24 ? 10 : (hours <= 72 ? 30 : 60);
+    const count = Math.floor((hours * 60) / stepMin);
+    const base = { temperature: 22, pressure: 1013, humidity: 58, wind_speed: 10 }[metric];
+    const amp  = { temperature: 6, pressure: 5, humidity: 18, wind_speed: 8 }[metric];
+    let seed = STATION_ID.length + hours;
+    for (let i = count; i >= 0; i--){
+        seed = (seed * 9301 + 49297) % 233280;
+        const noise = (seed / 233280 - 0.5) * 2;
+        const t = now - i * stepMin * 60000;
+        const cyc = Math.sin((i / count) * Math.PI * 2.2) * amp * 0.6;
+        const val = base + cyc + noise * amp * 0.35;
+        points.push({ timestamp: new Date(t).toISOString(), value: Math.round(val * 10) / 10 });
+    }
+    return points;
+}
+
+async function fetchHistory(hours, metric){
+    try {
+        const to = new Date().toISOString();
+        const from = new Date(Date.now() - hours * 3600000).toISOString();
+        const r = await fetch(`${API}/api/v1/stations/${STATION_ID}/history?from=${from}&to=${to}`, { signal: AbortSignal.timeout(5000) });
+        if (!r.ok) throw new Error('not ok');
+        const data = await r.json();
+        if (!Array.isArray(data.points) || !data.points.length) throw new Error('empty');
+        usingMock = false;
+        return data.points.map(p => ({ timestamp: p.timestamp, value: p[metric] }));
+    } catch {
+        usingMock = true;
+        return generateMock(hours, metric);
+    }
+}
+
+function fmt(v, unit){ return v === undefined || v === null || isNaN(v) ? '–' : `${v.toFixed(1)} ${unit}`; }
+
+async function renderChart(){
+    const meta = METRIC_META[currentMetric];
+    const points = await fetchHistory(currentHours, currentMetric);
+
+    document.getElementById('mockBanner').style.display = usingMock ? 'flex' : 'none';
+    document.getElementById('chartTitle').textContent = `${meta.label} — ${STATION_ID}`;
+
+    const values = points.map(p => p.value).filter(v => typeof v === 'number' && !isNaN(v));
+    const min = values.length ? Math.min(...values) : null;
+    const max = values.length ? Math.max(...values) : null;
+    const avg = values.length ? values.reduce((a,b) => a+b, 0) / values.length : null;
+    document.getElementById('statMin').textContent = fmt(min, meta.unit);
+    document.getElementById('statMax').textContent = fmt(max, meta.unit);
+    document.getElementById('statAvg').textContent = fmt(avg, meta.unit);
+
+    const labels = points.map(p => {
+        const d = new Date(p.timestamp);
+        return currentHours <= 24
+            ? d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' })
+            : d.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', hour: '2-digit' });
+    });
+
+    const ctx = document.getElementById('historyChart').getContext('2d');
+    if (chart) chart.destroy();
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, 320);
+    gradient.addColorStop(0, meta.color + '55');
+    gradient.addColorStop(1, meta.color + '00');
+
+    chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels,
+            datasets: [{
+                label: `${meta.label} (${meta.unit})`,
+                data: points.map(p => p.value),
+                borderColor: meta.color,
+                backgroundColor: gradient,
+                borderWidth: 2.5,
+                pointRadius: 0,
+                pointHoverRadius: 4,
+                tension: 0.35,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: { intersect: false, mode: 'index' },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    backgroundColor: 'rgba(11,29,34,.92)',
+                    borderColor: 'rgba(255,255,255,.15)',
+                    borderWidth: 1,
+                    padding: 10,
+                    titleColor: '#fff',
+                    bodyColor: 'rgba(255,255,255,.85)'
+                }
+            },
+            scales: {
+                x: { grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: 'rgba(255,255,255,.5)', maxTicksLimit: 8, font: { size: 11 } } },
+                y: { grid: { color: 'rgba(255,255,255,.06)' }, ticks: { color: 'rgba(255,255,255,.5)', font: { size: 11 } } }
+            }
+        }
+    });
+}
+
+document.querySelectorAll('.range-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.range-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentHours = parseInt(btn.dataset.hours, 10);
+        renderChart();
+    });
+});
+
+document.querySelectorAll('.metric-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.metric-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentMetric = btn.dataset.metric;
+        renderChart();
+    });
+});
+
+renderChart();
+</script>
+<script src="ui.js"></script>
+</body>
+</html>

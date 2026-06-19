@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LegmaMiteo — Mappa Stazioni</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">LegmaMiteo</a>
+    <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="live.html" class="nav-link">Live</a></li>
+        <li><a href="history.html" class="nav-link">Storico</a></li>
+        <li><a href="map.html" class="nav-link active">Mappa</a></li>
+        <li><a href="build.html" class="nav-link">Build</a></li>
+        <li><a href="api.html" class="nav-link">API</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-nav" target="_blank">
+                <svg class="github-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                GitHub
+            </a>
+        </li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<video autoplay loop muted playsinline class="video-bg">
+    <source src="resources/videos/sky1.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a><a href="live.html">Live Data</a>
+    <a href="history.html">Storico</a><a href="map.html">Mappa</a>
+    <a href="build.html">Build</a><a href="api.html">API</a><a href="about.html">About</a>
+    <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+</div>
+
+<main>
+    <section class="page-hero">
+        <div class="section-label">RETE GEOGRAFICA</div>
+        <h1>Mappa<br><span class="gradient-text">delle Stazioni</span></h1>
+        <p>Posizione e stato in tempo reale di ogni stazione attiva nella rete LegmaMiteo.</p>
+    </section>
+
+    <section class="content-section">
+        <div class="map-wrap">
+            <div class="map-shell">
+                <div id="stationMap"></div>
+            </div>
+            <div class="station-list" id="stationList"></div>
+            <p class="placeholder-note" id="mapNote"></p>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">LegmaMiteo</div>
+        <div class="footer-links">
+            <a href="live.html">Dati Live</a><a href="history.html">Storico</a>
+            <a href="map.html">Mappa</a><a href="build.html">Build</a><a href="api.html">API</a>
+            <a href="about.html">About</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/DATA_POLICY.md" target="_blank">Data Policy</a>
+        </div>
+        <p class="footer-copy">© 2026 LegmaMiteo — Hippocratic License HL3-CL-ECO-LAW-MIL-SV — Data: CC BY-NC 4.0</p>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const API = 'https://YOUR-TUNNEL.trycloudflare.com';
+
+// Fallback: known station(s) with hardcoded coordinates, used when
+// /api/v1/stations is not yet implemented server-side. Once that
+// endpoint exists, it fully replaces this list automatically.
+const FALLBACK_STATIONS = [
+    { id: 'station-001', lat: 45.4642, lon: 9.1900, label: 'station-001 — Milano area' }
+];
+
+const map = L.map('stationMap', { scrollWheelZoom: false }).setView([45.4642, 9.1900], 8);
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap &copy; CARTO',
+    maxZoom: 18
+}).addTo(map);
+
+function markerIcon(online){
+    return L.divIcon({
+        className: '',
+        html: `<div style="width:16px;height:16px;border-radius:50%;background:${online ? '#22c55e' : '#ef4444'};box-shadow:0 0 0 6px ${online ? 'rgba(34,197,94,.25)' : 'rgba(239,68,68,.2)'};border:2px solid rgba(255,255,255,.9)"></div>`,
+        iconSize: [16, 16],
+        iconAnchor: [8, 8]
+    });
+}
+
+function renderStationList(stations){
+    const list = document.getElementById('stationList');
+    list.innerHTML = stations.map(s => `
+        <div class="station-pin-card">
+            <div class="station-pin-dot ${s.online ? 'online' : 'offline'}"></div>
+            <div>
+                <div class="station-pin-name">${s.id}</div>
+                <div class="station-pin-meta">${s.lat.toFixed(4)}, ${s.lon.toFixed(4)} · ${s.online ? 'Online' : 'Offline'}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+async function checkOnline(stationId){
+    try {
+        const r = await fetch(`${API}/api/v1/stations/${stationId}/live`, { signal: AbortSignal.timeout(4000) });
+        return r.ok;
+    } catch {
+        return false;
+    }
+}
+
+async function loadStations(){
+    let stations = null;
+
+    // Try the multi-station endpoint first.
+    try {
+        const r = await fetch(`${API}/api/v1/stations`, { signal: AbortSignal.timeout(4000) });
+        if (r.ok) {
+            const data = await r.json();
+            if (Array.isArray(data.stations) && data.stations.length) {
+                stations = data.stations.map(s => ({
+                    id: s.id, lat: s.lat, lon: s.lon,
+                    online: s.status === 'online'
+                }));
+            }
+        }
+    } catch { /* endpoint not available yet, fall through */ }
+
+    // Fallback: hardcoded station(s), check liveness individually.
+    if (!stations) {
+        document.getElementById('mapNote').textContent =
+            'Endpoint /api/v1/stations non ancora disponibile — mostrando stazioni configurate manualmente.';
+        stations = await Promise.all(FALLBACK_STATIONS.map(async s => ({
+            id: s.id, lat: s.lat, lon: s.lon, online: await checkOnline(s.id)
+        })));
+    }
+
+    stations.forEach(s => {
+        L.marker([s.lat, s.lon], { icon: markerIcon(s.online) })
+            .addTo(map)
+            .bindPopup(`<b>${s.id}</b><br>${s.online ? 'Online' : 'Offline'}<br>${s.lat.toFixed(4)}, ${s.lon.toFixed(4)}`);
+    });
+
+    if (stations.length) {
+        const bounds = L.latLngBounds(stations.map(s => [s.lat, s.lon]));
+        map.fitBounds(bounds, { padding: [40, 40], maxZoom: 10 });
+    }
+
+    renderStationList(stations);
+}
+
+loadStations();
+setInterval(loadStations, 60000);
+</script>
+<script src="ui.js"></script>
+</body>
+</html>

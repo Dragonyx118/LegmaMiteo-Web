@@ -271,6 +271,70 @@ footer { background: rgba(11,29,34,.55); backdrop-filter: blur(20px); border-top
 .vision-box p { margin-bottom:0; color: rgba(255,255,255,.65); font-size: .95rem; }
 .prose-block { max-width: 760px; margin: 0 auto 1.8rem; }
 .prose-block p { color: rgba(255,255,255,.7); font-size: 1.05rem; line-height: 1.8; }
+
+/* MAP PAGE */
+.map-wrap { max-width:1100px; width:100%; margin:0 auto; }
+.map-shell { background:rgba(11,29,34,.50); backdrop-filter:blur(24px); border:1.5px solid rgba(255,255,255,.16); border-radius:20px; padding:12px; box-shadow:0 4px 20px rgba(0,0,0,.30),0 1px 0 rgba(255,255,255,.06) inset; }
+#stationMap { width:100%; height:480px; border-radius:14px; overflow:hidden; }
+.leaflet-popup-content-wrapper { background: rgba(11,29,34,.92); color:#fff; border-radius:12px; }
+.leaflet-popup-tip { background: rgba(11,29,34,.92); }
+.leaflet-popup-content { font-family:'Inter',sans-serif; font-size:13px; }
+.leaflet-popup-content b { color: var(--teal-light); }
+.leaflet-container a.leaflet-popup-close-button { color: rgba(255,255,255,.6); }
+.station-list { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; margin-top:24px; }
+.station-pin-card { background:rgba(11,29,34,.50); backdrop-filter:blur(24px); border:1.5px solid rgba(255,255,255,.16); border-radius:16px; padding:20px; display:flex; align-items:center; gap:14px; transition:transform .3s,background .3s; }
+.station-pin-card:hover { transform:translateY(-4px); background:rgba(11,29,34,.68); }
+.station-pin-dot { width:12px; height:12px; border-radius:50%; background:#64748b; flex-shrink:0; }
+.station-pin-dot.online { background:#22c55e; box-shadow:0 0 0 0 rgba(34,197,94,.5); animation:pulse-g 2s infinite; }
+.station-pin-dot.offline { background:#ef4444; }
+.station-pin-name { font-weight:600; color:#fff; font-size:14px; }
+.station-pin-meta { color:rgba(255,255,255,.55); font-size:12.5px; margin-top:2px; }
+
+/* HISTORY / CHARTS PAGE */
+.chart-controls { display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin:32px 0 8px; }
+.range-btn { background:rgba(11,29,34,.5); border:1.5px solid rgba(255,255,255,.16); color:rgba(255,255,255,.7); padding:9px 20px; border-radius:50px; font-size:13px; font-weight:600; cursor:none; transition:all .2s; font-family:inherit; }
+.range-btn:hover { border-color:rgba(8,187,191,.5); color:#fff; }
+.range-btn.active { background:linear-gradient(135deg,var(--teal-light),var(--indigo-light)); color:#fff; border-color:transparent; box-shadow:0 4px 16px rgba(8,187,191,.3); }
+.metric-tabs { display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-bottom:32px; }
+.metric-tab { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.14); color:rgba(255,255,255,.65); padding:8px 16px; border-radius:12px; font-size:12.5px; font-weight:600; cursor:none; transition:all .2s; font-family:inherit; display:flex; align-items:center; gap:6px; }
+.metric-tab:hover { color:#fff; }
+.metric-tab.active { background:rgba(8,187,191,.18); border-color:var(--teal-light); color:var(--teal-light); }
+.chart-card { background:rgba(11,29,34,.50); backdrop-filter:blur(24px); border:1.5px solid rgba(255,255,255,.16); border-radius:20px; padding:28px; box-shadow:0 4px 20px rgba(0,0,0,.30),0 1px 0 rgba(255,255,255,.06) inset; max-width:1100px; width:100%; margin:0 auto 24px; }
+.chart-card-header { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:18px; flex-wrap:wrap; gap:8px; }
+.chart-card-header h3 { color:#fff; font-size:16px; font-weight:600; }
+.chart-card-stats { display:flex; gap:18px; font-size:13px; color:rgba(255,255,255,.55); }
+.chart-card-stats b { color: var(--teal-light); font-weight:700; }
+.chart-canvas-wrap { position:relative; height:320px; }
+.mock-banner { max-width:1100px; margin:0 auto 24px; background:rgba(91,63,214,.16); border:1.5px solid rgba(91,63,214,.4); border-radius:14px; padding:12px 20px; color:rgba(255,255,255,.75); font-size:13px; display:flex; align-items:center; gap:10px; }
+
+/* BUILD PAGE */
+.build-steps { max-width:880px; margin:0 auto; display:flex; flex-direction:column; gap:0; }
+.build-step { display:flex; gap:24px; padding:28px 0; border-bottom:1px solid rgba(255,255,255,.1); }
+.build-step:last-child { border-bottom:none; }
+.build-step-num { width:44px; height:44px; min-width:44px; border-radius:50%; background:linear-gradient(135deg,var(--teal-light),var(--indigo-light)); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:16px; }
+.build-step h4 { color:#fff; font-size:17px; margin-bottom:8px; }
+.build-step p { color:rgba(255,255,255,.65); font-size:14.5px; line-height:1.7; }
+.bom-table { width:100%; max-width:880px; margin:0 auto; border-collapse:collapse; overflow:hidden; border-radius:16px; background:rgba(11,29,34,.45); backdrop-filter:blur(20px); }
+.bom-table th, .bom-table td { padding:14px 18px; text-align:left; font-size:13.5px; border-bottom:1px solid rgba(255,255,255,.08); }
+.bom-table th { color:var(--teal-light); font-weight:700; text-transform:uppercase; font-size:11px; letter-spacing:.5px; background:rgba(255,255,255,.04); }
+.bom-table td { color:rgba(255,255,255,.75); }
+.bom-table tr:last-child td { border-bottom:none; }
+.bom-table tr:hover td { background:rgba(255,255,255,.03); }
+.module-tabs { display:flex; gap:10px; justify-content:center; margin-bottom:28px; flex-wrap:wrap; }
+.module-tab { background:rgba(255,255,255,.06); border:1.5px solid rgba(255,255,255,.16); color:rgba(255,255,255,.65); padding:10px 22px; border-radius:50px; font-size:13.5px; font-weight:600; cursor:none; transition:all .2s; font-family:inherit; }
+.module-tab.active { background:linear-gradient(135deg,var(--teal-light),var(--indigo-light)); color:#fff; border-color:transparent; }
+.module-panel { display:none; }
+.module-panel.active { display:block; }
+.placeholder-note { text-align:center; color:rgba(255,255,255,.4); font-size:13px; font-style:italic; margin-top:12px; }
+
+@media (max-width: 900px) {
+    nav { gap: 18px; padding: 12px 22px; }
+    .nav-links { gap: 18px; }
+}
+@media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+}
 @media (max-width: 768px) {
     nav { top: 16px; padding: 12px 20px; gap: 24px; width: calc(100% - 32px); max-width: 600px; }
     .nav-links { display: none; }

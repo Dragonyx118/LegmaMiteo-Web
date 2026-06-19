@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LegmaMiteo — Build Your Own</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="logo">LegmaMiteo</a>
+    <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="live.html" class="nav-link">Live</a></li>
+        <li><a href="history.html" class="nav-link">Storico</a></li>
+        <li><a href="map.html" class="nav-link">Mappa</a></li>
+        <li><a href="build.html" class="nav-link active">Build</a></li>
+        <li><a href="api.html" class="nav-link">API</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-nav" target="_blank">
+                <svg class="github-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                GitHub
+            </a>
+        </li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
+
+<video autoplay loop muted playsinline class="video-bg">
+    <source src="resources/videos/sky1.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a><a href="live.html">Live Data</a>
+    <a href="history.html">Storico</a><a href="map.html">Mappa</a>
+    <a href="build.html">Build</a><a href="api.html">API</a><a href="about.html">About</a>
+    <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+</div>
+
+<main>
+    <section class="page-hero">
+        <div class="section-label">FAI DA TE</div>
+        <h1>Costruisci la Tua<br><span class="gradient-text">Stazione</span></h1>
+        <p>Schema modulare ESP32, sotto i €200, pensata per essere assemblata anche senza esperienza pregressa di elettronica.</p>
+    </section>
+
+    <!-- MODULES -->
+    <section class="content-section">
+        <div class="features-container">
+            <div class="section-label" style="text-align:center">ARCHITETTURA MODULARE</div>
+            <h2>Scegli i Moduli<br><span class="gradient-text">di cui hai Bisogno</span></h2>
+
+            <div class="module-tabs">
+                <button class="module-tab active" data-module="base">BASE</button>
+                <button class="module-tab" data-module="air">MOD-AIR</button>
+                <button class="module-tab" data-module="storm">MOD-STORM</button>
+            </div>
+
+            <div class="module-panel active" id="panel-base">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🧠</div>
+                        <h3>Microcontrollore</h3>
+                        <p>ESP32 — il cuore della stazione. Wi-Fi integrato, basso consumo, sufficiente GPIO per tutti i moduli sensore.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌡️</div>
+                        <h3>Sensori Base</h3>
+                        <p>Temperatura, umidità e pressione — le tre metriche fondamentali presenti su ogni stazione, indipendentemente dai moduli opzionali.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">☀️</div>
+                        <h3>Alimentazione</h3>
+                        <p>Pannello solare + batteria per funzionamento autonomo 24/7, pensato per installazioni non presidiate.</p>
+                    </div>
+                </div>
+                <p class="placeholder-note">Specifiche dettagliate dei componenti BASE in arrivo.</p>
+            </div>
+
+            <div class="module-panel" id="panel-air">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">😷</div>
+                        <h3>Particolato</h3>
+                        <p>Misura PM1, PM2.5 e PM10 — utile per qualità dell'aria e analisi post-evento (incendi, tempeste di sabbia, incidenti industriali).</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🫧</div>
+                        <h3>CO₂ e VOC</h3>
+                        <p>Monitoraggio di anidride carbonica e composti organici volatili in tempo reale.</p>
+                    </div>
+                </div>
+                <p class="placeholder-note">Specifiche dettagliate del modulo MOD-AIR in arrivo.</p>
+            </div>
+
+            <div class="module-panel" id="panel-storm">
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Rilevamento Fulmini</h3>
+                        <p>Sensore AS3935 Franklin — rileva fulmini fino a 40km di distanza, tracciandone distanza ed energia stimata.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📉</div>
+                        <h3>Pressione di Precisione</h3>
+                        <p>BMP580 ad alta risoluzione (0.06 hPa) per intercettare i cali rapidi di pressione precursori di convezione severa.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🌬️</div>
+                        <h3>Anemometro</h3>
+                        <p>Direzione e velocità del vento a livello del suolo, per identificare wind shear e raffiche improvvise.</p>
+                    </div>
+                </div>
+                <p class="placeholder-note">Specifiche dettagliate del modulo MOD-STORM in arrivo.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- BOM -->
+    <section class="content-section">
+        <div class="features-container">
+            <div class="section-label" style="text-align:center">COSTI</div>
+            <h2>Bill of Materials<br><span class="gradient-text">(BASE)</span></h2>
+            <table class="bom-table">
+                <thead>
+                    <tr><th>Componente</th><th>Funzione</th><th>Costo stimato</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>ESP32 DevKit</td><td>Microcontrollore + Wi-Fi</td><td>—</td></tr>
+                    <tr><td>Sensore T/H/P</td><td>Temperatura, umidità, pressione</td><td>—</td></tr>
+                    <tr><td>Pannello solare</td><td>Alimentazione</td><td>—</td></tr>
+                    <tr><td>Batteria + regolatore</td><td>Accumulo energetico</td><td>—</td></tr>
+                    <tr><td>Case stampato 3D / IP65</td><td>Protezione dagli agenti atmosferici</td><td>—</td></tr>
+                </tbody>
+            </table>
+            <p class="placeholder-note">Costi e link ai fornitori in arrivo — totale stimato: sotto i €200 per unità BASE.</p>
+        </div>
+    </section>
+
+    <!-- STEPS -->
+    <section class="content-section">
+        <div class="features-container">
+            <div class="section-label" style="text-align:center">PROCESSO</div>
+            <h2>Passo per Passo</h2>
+            <div class="build-steps">
+                <div class="build-step">
+                    <div class="build-step-num">1</div>
+                    <div>
+                        <h4>Procurati i componenti</h4>
+                        <p>Segui la BOM qui sopra per ordinare ESP32, sensori e parti di alimentazione. Quasi tutto è reperibile da fornitori elettronici generici.</p>
+                    </div>
+                </div>
+                <div class="build-step">
+                    <div class="build-step-num">2</div>
+                    <div>
+                        <h4>Flasha il firmware</h4>
+                        <p>Il firmware open source è disponibile nella repository GitHub. Configurazione minima richiesta: credenziali Wi-Fi e ID stazione.</p>
+                    </div>
+                </div>
+                <div class="build-step">
+                    <div class="build-step-num">3</div>
+                    <div>
+                        <h4>Assembla il case</h4>
+                        <p>Monta i sensori nel case protetto, garantendo ventilazione adeguata per le letture di temperatura e umidità.</p>
+                    </div>
+                </div>
+                <div class="build-step">
+                    <div class="build-step-num">4</div>
+                    <div>
+                        <h4>Posiziona e collega</h4>
+                        <p>Installa la stazione in un luogo esposto, lontano da fonti di calore artificiale. Al primo boot la stazione si registra automaticamente sulla rete MQTT.</p>
+                    </div>
+                </div>
+                <div class="build-step">
+                    <div class="build-step-num">5</div>
+                    <div>
+                        <h4>Verifica i dati live</h4>
+                        <p>Controlla che la stazione compaia online nella <a href="live.html" class="feature-link">pagina Dati Live</a> e che i valori siano plausibili.</p>
+                    </div>
+                </div>
+            </div>
+            <p class="placeholder-note">Guida dettagliata con schemi di cablaggio e foto in arrivo.</p>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-inner">
+            <h2>Schemi e Firmware<br><span class="gradient-text">su GitHub</span></h2>
+            <p>Tutta la documentazione hardware, gli schemi elettrici e il codice firmware sono open source e versionati nella repository principale.</p>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="btn-primary" target="_blank">Vai alla Repository</a>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">LegmaMiteo</div>
+        <div class="footer-links">
+            <a href="live.html">Dati Live</a><a href="history.html">Storico</a>
+            <a href="map.html">Mappa</a><a href="build.html">Build</a><a href="api.html">API</a>
+            <a href="about.html">About</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/DATA_POLICY.md" target="_blank">Data Policy</a>
+        </div>
+        <p class="footer-copy">© 2026 LegmaMiteo — Hippocratic License HL3-CL-ECO-LAW-MIL-SV — Data: CC BY-NC 4.0</p>
+    </div>
+</footer>
+
+<script>
+document.querySelectorAll('.module-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        document.querySelectorAll('.module-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.module-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.module).classList.add('active');
+    });
+});
+</script>
+<script src="ui.js"></script>
+</body>
+</html>
