@@ -1,88 +1,132 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LegmaMiteo - API Docs</title>
-    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
-    <style>
-        :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --primary: #2563eb;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-            --code-bg: #020617;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); }
-        header { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 1rem 2rem; }
-        nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        
-        .container { max-width: 900px; margin: 3rem auto; padding: 0 2rem; }
-        h2 { margin-bottom: 1rem; font-size: 2rem; }
-        p { color: var(--text-muted); margin-bottom: 2rem; }
-        
-        .api-block { background: var(--bg-card); border: 1px solid var(--border); border-radius: 0.75rem; padding: 1.5rem; margin-bottom: 2rem; }
-        .endpoint { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
-        .method { background: var(--primary); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-weight: bold; font-size: 0.85rem; }
-        .url { font-family: monospace; color: #60a5fa; }
-        
-        pre { background: var(--code-bg); padding: 1rem; border-radius: 0.5rem; overflow-x: auto; border: 1px solid var(--border); }
-        code { font-family: 'Courier New', Courier, monospace; color: #f1f5f9; font-size: 0.9rem; }
-
-        footer { background: #020617; border-top: 1px solid var(--border); padding: 2rem; text-align: center; margin-top: 6rem; }
-        .github-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #24292e; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; text-decoration: none; font-size: 0.9rem; margin-top: 1rem; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LegmaMiteo — API Docs</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo"><i data-lucide="cloud-lightning"></i> LegmaMiteo</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="live.html">Dati Live</a></li>
-                <li><a href="api.html" class="active">API Docs</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main class="container">
-        <h2>Documentazione API Pubbliche</h2>
-        <p>Interfaccia RESTful aperta e gratuita per integrare i dati aggregati della rete nei vostri sistemi software e modelli previsionali locali.</p>
+<nav>
+    <a href="index.html" class="logo">LegmaMiteo</a>
+    <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="live.html" class="nav-link">Dati Live</a></li>
+        <li><a href="api.html" class="nav-link active">API</a></li>
+        <li><a href="about.html" class="nav-link">About</a></li>
+        <li>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-nav" target="_blank">
+                <svg class="github-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                GitHub
+            </a>
+        </li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
 
-        <div class="api-block">
-            <div class="endpoint">
-                <span class="method">GET</span>
-                <span class="url">/api/v1/stations/{station_id}/live</span>
-            </div>
-            <p>Restituisce le ultime metriche istantanee inviate dai sensori di una specifica base meteo attiva.</p>
-            <pre><code>{
-  "station_id": "LOM-001",
-  "timestamp": "2026-06-16T11:33:00Z",
+<video autoplay loop muted playsinline class="video-bg">
+    <source src="resources/videos/sky1.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a><a href="live.html">Dati Live</a>
+    <a href="api.html">API</a><a href="about.html">About</a>
+    <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+</div>
+
+<main>
+    <section class="page-hero">
+        <div class="section-label">PER SVILUPPATORI</div>
+        <h1>Documentazione<br><span class="gradient-text">API Pubbliche</span></h1>
+        <p>Interfaccia RESTful aperta e gratuita per integrare i dati aggregati della rete nei vostri sistemi software e modelli previsionali locali. Nessuna API key richiesta in lettura.</p>
+    </section>
+
+    <section class="content-section">
+        <div class="features-container">
+
+            <div class="api-block">
+                <div class="api-endpoint">
+                    <span class="api-method">GET</span>
+                    <span class="api-url">/api/v1/stations/{station_id}/live</span>
+                </div>
+                <p>Restituisce le ultime metriche istantanee inviate dai sensori di una specifica stazione attiva.</p>
+                <pre><code>{
+  "station_id": "station-001",
+  "timestamp": "2026-06-19T11:33:00Z",
   "sensors": {
     "temperature": 23.4,
     "humidity": 56.0,
-    "pressure": 1012.3
+    "pressure": 1012.3,
+    "wind_speed": 12.5
   }
 }</code></pre>
+            </div>
+
+            <div class="api-block">
+                <div class="api-endpoint">
+                    <span class="api-method">GET</span>
+                    <span class="api-url">/api/v1/stations/{station_id}/history</span>
+                </div>
+                <p>Serie storica delle misurazioni in una finestra temporale, utile per analisi e grafici. Parametri opzionali: <code>from</code>, <code>to</code>, <code>interval</code>.</p>
+                <pre><code>GET /api/v1/stations/station-001/history?from=2026-06-18T00:00:00Z&to=2026-06-19T00:00:00Z
+
+{
+  "station_id": "station-001",
+  "points": [
+    { "timestamp": "2026-06-18T00:00:00Z", "temperature": 18.1, "pressure": 1014.0 },
+    { "timestamp": "2026-06-18T00:30:00Z", "temperature": 17.9, "pressure": 1013.8 }
+  ]
+}</code></pre>
+            </div>
+
+            <div class="api-block">
+                <div class="api-endpoint">
+                    <span class="api-method">GET</span>
+                    <span class="api-url">/api/v1/stations</span>
+                </div>
+                <p>Elenca tutte le stazioni attive nella rete con posizione geografica e stato corrente.</p>
+                <pre><code>{
+  "stations": [
+    { "id": "station-001", "lat": 45.4642, "lon": 9.1900, "status": "online" }
+  ]
+}</code></pre>
+            </div>
+
+            <div class="api-block">
+                <div class="api-endpoint">
+                    <span class="api-method">GET</span>
+                    <span class="api-url">/health</span>
+                </div>
+                <p>Endpoint leggero di health-check usato anche dal sito per mostrare lo stato online/offline della rete in tempo reale.</p>
+                <pre><code>{ "status": "ok" }</code></pre>
+            </div>
+
         </div>
-    </main>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 LegmaMiteo Project. Tutti i diritti riservati.</p>
-        <a href="https://github.com/Dragonyx118/LegmaMiteo-Web" class="github-btn" target="_blank">
-            <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            Vedi la Repository su GitHub
-        </a>
-    </footer>
+    <section class="cta-section">
+        <div class="cta-inner">
+            <h2>Integra i Dati<br><span class="gradient-text">nei Tuoi Progetti</span></h2>
+            <p>Codice sorgente del layer FastAPI e schema completo degli endpoint disponibili sulla repository principale.</p>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="btn-primary" target="_blank">Esplora il Codice</a>
+        </div>
+    </section>
+</main>
 
-    <script>lucide.createIcons();</script>
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">LegmaMiteo</div>
+        <div class="footer-links">
+            <a href="live.html">Dati Live</a><a href="api.html">API</a>
+            <a href="about.html">About</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/DATA_POLICY.md" target="_blank">Data Policy</a>
+        </div>
+        <p class="footer-copy">© 2026 LegmaMiteo — Hippocratic License HL3-CL-ECO-LAW-MIL-SV — Data: CC BY-NC 4.0</p>
+    </div>
+</footer>
+
+<script src="ui.js"></script>
 </body>
 </html>

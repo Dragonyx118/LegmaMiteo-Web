@@ -1,76 +1,102 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LegmaMiteo - About</title>
-    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
-    <style>
-        :root {
-            --bg-dark: #0f172a;
-            --bg-card: #1e293b;
-            --primary: #2563eb;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border: #334155;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.7; }
-        header { background: var(--bg-card); border-bottom: 1px solid var(--border); padding: 1rem 2rem; }
-        nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); display: flex; align-items: center; gap: 0.5rem; }
-        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
-        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 500; }
-        .nav-links a:hover, .nav-links a.active { color: var(--primary); }
-        
-        .container { max-width: 800px; margin: 4rem auto; padding: 0 2rem; }
-        h2 { margin-bottom: 1.5rem; font-size: 2.2rem; background: linear-gradient(to right, #60a5fa, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1.1rem; }
-        
-        .vision-box { background: var(--bg-card); border-left: 4px solid var(--primary); padding: 1.5rem; border-radius: 0 0.5rem 0.5rem 0; margin: 2.5rem 0; }
-        .vision-box h4 { margin-bottom: 0.5rem; color: var(--text-main); }
-
-        footer { background: #020617; border-top: 1px solid var(--border); padding: 2rem; text-align: center; margin-top: 6rem; }
-        .github-btn { display: inline-flex; align-items: center; gap: 0.5rem; background: #24292e; color: white; padding: 0.5rem 1rem; border-radius: 0.375rem; text-decoration: none; font-size: 0.9rem; margin-top: 1rem; }
-    </style>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LegmaMiteo — About</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo"><i data-lucide="cloud-lightning"></i> LegmaMiteo</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="live.html">Dati Live</a></li>
-                <li><a href="api.html">API Docs</a></li>
-                <li><a href="about.html" class="active">About</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <video autoplay loop muted playsinline class="video-bg">
-        <source src="resources/videos/eolic.mp4" type="video/mp4">
-    </video>
+<nav>
+    <a href="index.html" class="logo">LegmaMiteo</a>
+    <ul class="nav-links">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="live.html" class="nav-link">Dati Live</a></li>
+        <li><a href="api.html" class="nav-link">API</a></li>
+        <li><a href="about.html" class="nav-link active">About</a></li>
+        <li>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="cta-nav" target="_blank">
+                <svg class="github-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                GitHub
+            </a>
+        </li>
+    </ul>
+    <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
+</nav>
 
-    <main class="container">
-        <h2>La Nostra Visione</h2>
-        <p>Il progetto LegmaMiteo nasce dall'esigenza stringente di disporre di maglie di rilevamento micro-climatico iper-locali. I cambiamenti climatici in corso stanno intensificando la frequenza di fenomeni temporaleschi a evoluzione rapidissima (flash floods, downburst) che le stazioni macro-regionali classiche faticano a intercettare preventivamente.</p>
+<video autoplay loop muted playsinline class="video-bg">
+    <source src="resources/videos/sky1.mp4" type="video/mp4">
+</video>
+<div class="video-overlay"></div>
 
-        <div class="vision-box">
-            <h4>Nowcasting e Allerta precoce</h4>
-            <p style="margin-bottom: 0; font-size: 1rem;">Costruire un ecosistema distribuito e decentralizzato capace di tracciare in tempo reale la saturazione idrica del suolo, il vento e i gradienti termici sensibili della pianura e delle prealpi lombarde.</p>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Home</a><a href="live.html">Dati Live</a>
+    <a href="api.html">API</a><a href="about.html">About</a>
+    <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+</div>
+
+<main>
+    <section class="page-hero">
+        <div class="section-label">CHI SIAMO</div>
+        <h1>La Nostra<br><span class="gradient-text">Visione</span></h1>
+        <p>Un ecosistema aperto e decentralizzato per intercettare il maltempo severo prima che arrivi.</p>
+    </section>
+
+    <section class="content-section">
+        <div class="prose-block">
+            <p>Il progetto LegmaMiteo nasce dall'esigenza stringente di disporre di maglie di rilevamento micro-climatico iper-locali. I cambiamenti climatici in corso stanno intensificando la frequenza di fenomeni temporaleschi a evoluzione rapidissima (flash floods, downburst) che le stazioni macro-regionali classiche faticano a intercettare preventivamente.</p>
+
+            <div class="vision-box">
+                <h4>🌩️ Nowcasting e allerta precoce</h4>
+                <p>Costruire un ecosistema distribuito e decentralizzato capace di tracciare in tempo reale la saturazione idrica del suolo, il vento e i gradienti termici sensibili della pianura e delle prealpi lombarde.</p>
+            </div>
+
+            <p>Grazie all'adozione di standard trasparenti e tecnologie industriali aperte (Docker, MQTT), LegmaMiteo restituisce il controllo dei dati ambientali alle comunità locali, ai ricercatori e agli appassionati.</p>
         </div>
 
-        <p>Grazie all'adozione di standard trasparenti e tecnologie industriali aperte (Docker, MQTT), LegmaMiteo restituisce il controllo dei dati ambientali alle comunità locali, ai ricercatori e agli appassionati.</p>
-    </main>
+        <div class="features-container">
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🛰️</div>
+                    <h3>Perché serve</h3>
+                    <p>I modelli globali operano a 9km e un'ora di passo temporale. Una supercella si forma in 20 minuti su 5km: è esattamente il vuoto che LegmaMiteo colma.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧩</div>
+                    <h3>Modulare per natura</h3>
+                    <p>Ogni stazione è una base ESP32 con moduli sensore intercambiabili (MOD-AIR, MOD-STORM): si espande in base al bisogno scientifico del sito.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h3>Comunità e dati aperti</h3>
+                    <p>Hardware, firmware e stack server sono open source. I dati aggregati sono pubblici, gratuiti per ricerca ed educazione sotto licenza CC BY-NC 4.0.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer>
-        <p>&copy; 2026 LegmaMiteo Project. Tutti i diritti riservati.</p>
-        <a href="https://github.com/Dragonyx118/LegmaMiteo-Web" class="github-btn" target="_blank">
-            <svg height="20" width="20" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-            Vedi la Repository su GitHub
-        </a>
-    </footer>
+    <section class="cta-section">
+        <div class="cta-inner">
+            <h2>Vuoi Contribuire<br><span class="gradient-text">al Progetto?</span></h2>
+            <p>LegmaMiteo cresce con il contributo della comunità: codice, hardware, dati, segnalazioni di bug. Tutto è benvenuto.</p>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" class="btn-primary" target="_blank">Vai al Repository</a>
+        </div>
+    </section>
+</main>
 
-    <script>lucide.createIcons();</script>
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">LegmaMiteo</div>
+        <div class="footer-links">
+            <a href="live.html">Dati Live</a><a href="api.html">API</a>
+            <a href="about.html">About</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo" target="_blank">GitHub</a>
+            <a href="https://github.com/Dragonyx118/LegmaMiteo/blob/main/DATA_POLICY.md" target="_blank">Data Policy</a>
+        </div>
+        <p class="footer-copy">© 2026 LegmaMiteo — Hippocratic License HL3-CL-ECO-LAW-MIL-SV — Data: CC BY-NC 4.0</p>
+    </div>
+</footer>
+
+<script src="ui.js"></script>
 </body>
 </html>

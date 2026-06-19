@@ -4,20 +4,7 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LegmaMiteo — Open Weather Network</title>
 <link rel="stylesheet" href="style.css">
-<style>
-.main { display:flex; flex-direction:column; align-items:center; overflow:hidden; width:100%; min-height:300vh; position:relative; z-index:1; }
-.content-section { min-height:80vh; display:flex; align-items:center; justify-content:center; padding:100px 24px; position:relative; z-index:2; width:100%; }
-.content-section h2 { font-size:clamp(32px,5vw,48px); font-weight:700; text-align:center; margin-bottom:16px; letter-spacing:-1px; line-height:1.15; }
-.features-container { max-width:1100px; width:100%; }
-.features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:24px; margin-top:60px; }
-.feature-card { background:rgba(255,255,255,.60); backdrop-filter:blur(24px); border:1.5px solid rgba(255,255,255,.85); border-radius:20px; padding:32px; text-align:center; transition:transform .3s,box-shadow .3s,background .3s; display:flex; flex-direction:column; gap:12px; box-shadow:0 4px 20px rgba(0,0,0,.07),0 1px 0 #fff inset; }
-.feature-card:hover { transform:translateY(-8px); background:rgba(255,255,255,.82); box-shadow:0 20px 50px rgba(8,187,191,.15),0 1px 0 #fff inset; }
-.feature-icon { font-size:36px; }
-.feature-card h3 { font-size:20px; font-weight:600; background:linear-gradient(135deg,var(--teal),var(--green)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
-.feature-card p { color:var(--text-muted); font-size:15px; line-height:1.6; }
-.feature-link { color:var(--teal); text-decoration:none; font-size:14px; font-weight:600; transition:opacity .2s; }
-.feature-link:hover { opacity:.7; }
-</style>
+
 </head>
 <body>
 
@@ -38,10 +25,10 @@
     <button class="hamburger" id="hamburger"><span></span><span></span><span></span></button>
 </nav>
 
-HTML
 <video autoplay loop muted playsinline class="video-bg">
     <source src="resources/videos/sky1.mp4" type="video/mp4">
 </video>
+<div class="video-overlay"></div>
 
 <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Home</a><a href="live.html">Live Data</a>
@@ -53,6 +40,7 @@ HTML
     <section class="paragraph" id="home">
         <div class="canvas-container"><canvas id="canvas"></canvas></div>
         <div class="hero-content">
+            <br><<br><br><br>
             <div class="hero-badge">🌤️ Open Weather Network — Northern Italy</div>
             <h1 class="hero-title">Understand the Sky<br><span class="gradient-text">Before It Strikes</span></h1>
             <p class="hero-sub">LegmaMiteo is an open-source network of modular weather stations built to detect severe convective events — supercells, hailstorms, and tornadoes — that national models miss entirely.</p>
@@ -153,7 +141,7 @@ geo.setAttribute('position',new THREE.BufferAttribute(pos,3));
 const mat=new THREE.PointsMaterial({size:.018,color:0x08bbbf,transparent:true,opacity:.75,blending:THREE.AdditiveBlending,sizeAttenuation:true});
 const pts=new THREE.Points(geo,mat);scene.add(pts);
 const sphere=new THREE.Mesh(new THREE.SphereGeometry(2,64,64),new THREE.MeshBasicMaterial({color:0x08bbbf,transparent:true,opacity:.08,wireframe:true}));scene.add(sphere);
-const inner=new THREE.Mesh(new THREE.SphereGeometry(1.4,32,32),new THREE.MeshBasicMaterial({color:0x9ad63c,transparent:true,opacity:.04,wireframe:true}));scene.add(inner);
+const inner=new THREE.Mesh(new THREE.SphereGeometry(1.4,32,32),new THREE.MeshBasicMaterial({color:0x5b3fd6,transparent:true,opacity:.05,wireframe:true}));scene.add(inner);
 let sp=0;const clk=new THREE.Clock();
 gsap.registerPlugin(ScrollTrigger);
 ScrollTrigger.create({trigger:'.paragraph',start:'top top',end:'bottom top',scrub:true,onUpdate:s=>{sp=s.progress;}});
@@ -163,7 +151,7 @@ gsap.from('.hero-sub',{opacity:0,y:30,duration:.8,delay:.7,ease:'power2.out'});
 gsap.from('.hero-actions',{opacity:0,y:20,duration:.8,delay:.9,ease:'power2.out'});
 gsap.from('.status-badge',{opacity:0,y:20,duration:.8,delay:1.1,ease:'power2.out'});
 gsap.utils.toArray('.feature-card').forEach((c,i)=>gsap.from(c,{scrollTrigger:{trigger:'.features-grid',start:'top 80%'},y:60,opacity:0,duration:.8,delay:i*.1,ease:'power2.out'}));
-(function anim(){requestAnimationFrame(anim);const t=clk.getElapsedTime();pts.rotation.y=t*.04+sp*Math.PI*2;pts.rotation.x=t*.015+sp*Math.PI;sphere.rotation.y=t*.06;sphere.rotation.x=t*.03;sphere.scale.setScalar(1+sp*.6);inner.rotation.y=-t*.1;inner.rotation.z=t*.05;const p=pts.geometry.attributes.position.array;for(let i=0;i<p.length;i+=3)p[i+1]+=Math.sin(t*.5+p[i])*.001;pts.geometry.attributes.position.needsUpdate=true;const c=new THREE.Color().setHSL(.5+sp*.15,.8,.55);mat.color=c;sphere.material.color=c;renderer.render(scene,camera);})();
+(function anim(){requestAnimationFrame(anim);const t=clk.getElapsedTime();pts.rotation.y=t*.04+sp*Math.PI*2;pts.rotation.x=t*.015+sp*Math.PI;sphere.rotation.y=t*.06;sphere.rotation.x=t*.03;sphere.scale.setScalar(1+sp*.6);inner.rotation.y=-t*.1;inner.rotation.z=t*.05;const p=pts.geometry.attributes.position.array;for(let i=0;i<p.length;i+=3)p[i+1]+=Math.sin(t*.5+p[i])*.001;pts.geometry.attributes.position.needsUpdate=true;const c=new THREE.Color().setHSL(.62+sp*.08,.75,.5);mat.color=c;sphere.material.color=c;renderer.render(scene,camera);})();
 window.addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 
 // API
