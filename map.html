@@ -76,14 +76,15 @@
 <script>
 const API = 'https://YOUR-TUNNEL.trycloudflare.com';
 
-// Fallback: known station(s) with hardcoded coordinates, used when
-// /api/v1/stations is not yet implemented server-side. Once that
-// endpoint exists, it fully replaces this list automatically.
+// Coordinate delle stazioni — il backend non traccia lat/lon (InfluxDB
+// salva solo le misure, non la posizione fisica), quindi questa lista
+// resta la fonte di verità per la mappa. Aggiungere qui ogni nuova
+// stazione deployata. Lo stato online/offline invece arriva dal server.
 const FALLBACK_STATIONS = [
-    { id: 'station-001', lat: 45.4642, lon: 9.1900, label: 'station-001 — Milano area' }
+    { id: 'station-001', lat: 45.4002, lon: 9.6713, label: 'station-001' }
 ];
 
-const map = L.map('stationMap', { scrollWheelZoom: false }).setView([45.4642, 9.1900], 8);
+const map = L.map('stationMap', { scrollWheelZoom: false }).setView([45.4002, 9.6713], 11);
 
 L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
     attribution: '&copy; OpenStreetMap &copy; CARTO',
@@ -114,7 +115,7 @@ function renderStationList(stations){
 
 async function checkOnline(stationId){
     try {
-        const r = await fetch(`${API}/api/v1/stations/${stationId}/live`, { signal: AbortSignal.timeout(4000) });
+        const r = await fetch(`${API}/data/${stationId}/latest?module=base`, { signal: AbortSignal.timeout(4000) });
         return r.ok;
     } catch {
         return false;
@@ -122,30 +123,15 @@ async function checkOnline(stationId){
 }
 
 async function loadStations(){
-    let stations = null;
+    // Le coordinate vivono solo qui sul frontend (InfluxDB/backend non
+    // tracciano lat/lon per stazione). Il check online/offline invece
+    // usa il dato reale dell'ultimo valore ricevuto da ciascuna stazione.
+    document.getElementById('mapNote').textContent =
+        'Posizioni configurate manualmente — stato online/offline in tempo reale dal server.';
 
-    // Try the multi-station endpoint first.
-    try {
-        const r = await fetch(`${API}/api/v1/stations`, { signal: AbortSignal.timeout(4000) });
-        if (r.ok) {
-            const data = await r.json();
-            if (Array.isArray(data.stations) && data.stations.length) {
-                stations = data.stations.map(s => ({
-                    id: s.id, lat: s.lat, lon: s.lon,
-                    online: s.status === 'online'
-                }));
-            }
-        }
-    } catch { /* endpoint not available yet, fall through */ }
-
-    // Fallback: hardcoded station(s), check liveness individually.
-    if (!stations) {
-        document.getElementById('mapNote').textContent =
-            'Endpoint /api/v1/stations non ancora disponibile — mostrando stazioni configurate manualmente.';
-        stations = await Promise.all(FALLBACK_STATIONS.map(async s => ({
-            id: s.id, lat: s.lat, lon: s.lon, online: await checkOnline(s.id)
-        })));
-    }
+    const stations = await Promise.all(FALLBACK_STATIONS.map(async s => ({
+        id: s.id, lat: s.lat, lon: s.lon, online: await checkOnline(s.id)
+    })));
 
     stations.forEach(s => {
         L.marker([s.lat, s.lon], { icon: markerIcon(s.online) })

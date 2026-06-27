@@ -64,7 +64,7 @@
             </div>
 
             <p class="mock-banner" id="mockBanner" style="display:none">
-                ⚠️ L'endpoint <code>/api/v1/stations/{id}/history</code> non è ancora attivo sul server — questa pagina mostra dati simulati con la stessa struttura, pronti a essere sostituiti automaticamente quando l'endpoint sarà disponibile.
+                ⚠️ L'endpoint <code>/data/{station_id}/history</code> non è raggiungibile in questo momento — questa pagina mostra dati simulati con la stessa struttura, pronti a essere sostituiti automaticamente quando il server sarà online.
             </p>
 
             <div class="chart-card">
@@ -138,14 +138,12 @@ function generateMock(hours, metric){
 
 async function fetchHistory(hours, metric){
     try {
-        const to = new Date().toISOString();
-        const from = new Date(Date.now() - hours * 3600000).toISOString();
-        const r = await fetch(`${API}/api/v1/stations/${STATION_ID}/history?from=${from}&to=${to}`, { signal: AbortSignal.timeout(5000) });
+        const r = await fetch(`${API}/data/${STATION_ID}/history?module=base&field=${metric}&range_hours=${hours}`, { signal: AbortSignal.timeout(5000) });
         if (!r.ok) throw new Error('not ok');
         const data = await r.json();
-        if (!Array.isArray(data.points) || !data.points.length) throw new Error('empty');
+        if (!data.success || !Array.isArray(data.points) || !data.points.length) throw new Error('empty');
         usingMock = false;
-        return data.points.map(p => ({ timestamp: p.timestamp, value: p[metric] }));
+        return data.points.map(p => ({ timestamp: p.time, value: p.value }));
     } catch {
         usingMock = true;
         return generateMock(hours, metric);
